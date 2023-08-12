@@ -1,0 +1,92 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "GreenTaxisCsvDataset",
+						"type": "DatasetReference"
+					},
+					"name": "GreenTaxisSrc"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "GrrenTaxisJsonDataset",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectedColumns"
+				},
+				{
+					"name": "FilteredData"
+				},
+				{
+					"name": "DerivedColumns"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          VendorID as short,",
+				"          lpep_pickup_datetime as timestamp,",
+				"          lpep_dropoff_datetime as timestamp,",
+				"          store_and_fwd_flag as boolean,",
+				"          RatecodeID as short,",
+				"          PULocationID as short,",
+				"          DOLocationID as short,",
+				"          passenger_count as short,",
+				"          trip_distance as double,",
+				"          fare_amount as double,",
+				"          extra as double,",
+				"          mta_tax as double,",
+				"          tip_amount as double,",
+				"          tolls_amount as double,",
+				"          ehail_fee as string,",
+				"          improvement_surcharge as double,",
+				"          total_amount as double,",
+				"          payment_type as short,",
+				"          trip_type as short,",
+				"          congestion_surcharge as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> GreenTaxisSrc",
+				"GreenTaxisSrc select(mapColumn(",
+				"          VendorID,",
+				"          PickupTime = lpep_pickup_datetime,",
+				"          DropTime = lpep_dropoff_datetime,",
+				"          RateCodeId = RatecodeID,",
+				"          PickupLocationId = PULocationID,",
+				"          DropLocationId = DOLocationID,",
+				"          PassengerCount = passenger_count,",
+				"          TripDistance = trip_distance,",
+				"          TotalAmount = total_amount,",
+				"          PaymentType = payment_type,",
+				"          TripType = trip_type",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectedColumns",
+				"SelectedColumns filter(and(\r",
+				"        toDate(PickupTime) >= toDate('2019-11-01'),\r",
+				"        toDate(PickupTime) < toDate('2019-12-01')\r",
+				"   )) ~> FilteredData",
+				"FilteredData derive(TripYear = year(PickupTime),",
+				"          TripMonth = month(PickupTime)) ~> DerivedColumns",
+				"DerivedColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "MSTrainingADF",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3ba0ac3b-3ac5-49c3-bb37-ff1562a90577",
+		"tenantId": "2af90ac7-da18-425c-b781-fa2e68735233"
+	}
+}

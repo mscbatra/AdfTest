@@ -1,0 +1,41 @@
+{
+	"name": "GetFilesDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataLakeConnInfo",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Raw/TaxiZones",
+				"fileSystem": "taxidata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "LocationID",
+				"type": "String"
+			},
+			{
+				"name": "Borough",
+				"type": "String"
+			},
+			{
+				"name": "Zone",
+				"type": "String"
+			},
+			{
+				"name": "service_zone",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
