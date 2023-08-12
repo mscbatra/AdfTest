@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "MSTrainingADF"
+		},
+		"AzureSqlConnectionInfo_connectionString": {
+			"value": ""
+		},
+		"AzureSqlLinkedService_connectionString": {
+			"value": ""
+		},
+		"DataLakeConnInfo_accountKey": {
+			"value": ""
+		},
+		"DataLakeLinkedService_accountKey": {
+			"value": ""
+		},
+		"DataLakeConnInfo_properties_typeProperties_url": {
+			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
+		},
+		"DataLakeLinkedService_properties_typeProperties_url": {
+			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
+		}
+	}
+}
