@@ -16,7 +16,7 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 2,
-				"startTime": "2023-10-01T09:12:00",
+				"startTime": "2023-10-01T09:00:00",
 				"timeZone": "India Standard Time"
 			}
 		}
