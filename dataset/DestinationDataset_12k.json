@@ -1,0 +1,20 @@
+{
+	"name": "DestinationDataset_12k",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TestADLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "TaxiZones.json",
+				"folderPath": "Output/TestADF",
+				"fileSystem": "taxidata"
+			}
+		},
+		"schema": {}
+	}
+}

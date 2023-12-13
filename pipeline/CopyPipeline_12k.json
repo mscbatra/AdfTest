@@ -1,0 +1,99 @@
+{
+	"name": "CopyPipeline_12k",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_12k",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "taxidata/Raw/TaxiZones.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "taxidata/Output/TestADF/TaxiZones.json"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "LocationID",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['LocationID']"
+								}
+							},
+							{
+								"source": {
+									"name": "Borough",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Borough']"
+								}
+							},
+							{
+								"source": {
+									"name": "Zone",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Zone2']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_12k",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_12k",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
