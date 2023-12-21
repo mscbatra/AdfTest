@@ -17,6 +17,9 @@
 		"DataLakeLinkedService_accountKey": {
 			"value": ""
 		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://mskeyvault11.vault.azure.net/"
+		},
 		"DataLakeConnInfo_properties_typeProperties_url": {
 			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
