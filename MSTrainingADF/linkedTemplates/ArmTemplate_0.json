@@ -7,9 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "MSTrainingADF"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureSqlConnInfo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlConnInfo'"
+		},
 		"AzureSqlConnectionInfo_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlConnectionInfo'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
 		"AzureSqlLinkedService_connectionString": {
 			"type": "secureString",
@@ -19,15 +31,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DataLakeConnInfo'"
 		},
+		"DataLakeConnInfo2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'DataLakeConnInfo2'"
+		},
 		"DataLakeLinkedService_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DataLakeLinkedService'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://mskeyvault11.vault.azure.net/"
 		},
 		"DataLakeConnInfo_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
+		},
+		"DataLakeConnInfo2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
@@ -40,6 +64,23 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -54,6 +95,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlConnInfo')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlConnInfo_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlConnectionInfo')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -62,6 +116,19 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlConnectionInfo_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -91,6 +158,23 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('DataLakeConnInfo_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataLakeConnInfo2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('DataLakeConnInfo2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('DataLakeConnInfo2_accountKey')]"
 					}
 				}
 			},
@@ -450,8 +534,8 @@
 					}
 				],
 				"typeProperties": {
-					"schema": "dbo",
-					"table": "ProductsModified"
+					"schema": "SalesLT",
+					"table": "Product_Modified"
 				}
 			},
 			"dependsOn": [
@@ -785,9 +869,9 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "PID",
-											"type": "String",
-											"physicalType": "varchar"
+											"name": "ProdId",
+											"type": "Int32",
+											"physicalType": "int"
 										}
 									},
 									{
@@ -797,7 +881,7 @@
 											"physicalType": "String"
 										},
 										"sink": {
-											"name": "NAME",
+											"name": "ProductName",
 											"type": "String",
 											"physicalType": "varchar"
 										}
@@ -1155,293 +1239,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SrcDataset')]",
 				"[concat(variables('factoryId'), '/datasets/SinkDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/TestPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "GreenTaxisCsvDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "GrrenTaxisJsonDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/GreenTaxisCsvDataset')]",
-				"[concat(variables('factoryId'), '/datasets/GrrenTaxisJsonDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "GreenTaxisCsvDataset",
-								"type": "DatasetReference"
-							},
-							"name": "GreenTaxisSrc"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "GrrenTaxisJsonDataset",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "SelectedColumns"
-						},
-						{
-							"name": "FilteredData"
-						},
-						{
-							"name": "DerivedColumns"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          VendorID as short,",
-						"          lpep_pickup_datetime as timestamp,",
-						"          lpep_dropoff_datetime as timestamp,",
-						"          store_and_fwd_flag as boolean,",
-						"          RatecodeID as short,",
-						"          PULocationID as short,",
-						"          DOLocationID as short,",
-						"          passenger_count as short,",
-						"          trip_distance as double,",
-						"          fare_amount as double,",
-						"          extra as double,",
-						"          mta_tax as double,",
-						"          tip_amount as double,",
-						"          tolls_amount as double,",
-						"          ehail_fee as string,",
-						"          improvement_surcharge as double,",
-						"          total_amount as double,",
-						"          payment_type as short,",
-						"          trip_type as short,",
-						"          congestion_surcharge as double",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> GreenTaxisSrc",
-						"GreenTaxisSrc select(mapColumn(",
-						"          VendorID,",
-						"          PickupTime = lpep_pickup_datetime,",
-						"          DropTime = lpep_dropoff_datetime,",
-						"          RateCodeId = RatecodeID,",
-						"          PickupLocationId = PULocationID,",
-						"          DropLocationId = DOLocationID,",
-						"          PassengerCount = passenger_count,",
-						"          TripDistance = trip_distance,",
-						"          TotalAmount = total_amount,",
-						"          PaymentType = payment_type,",
-						"          TripType = trip_type",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> SelectedColumns",
-						"SelectedColumns filter(and(\r",
-						"        toDate(PickupTime) >= toDate('2019-11-01'),\r",
-						"        toDate(PickupTime) < toDate('2019-12-01')\r",
-						"   )) ~> FilteredData",
-						"FilteredData derive(TripYear = year(PickupTime),",
-						"          TripMonth = month(PickupTime)) ~> DerivedColumns",
-						"DerivedColumns sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/GreenTaxisCsvDataset')]",
-				"[concat(variables('factoryId'), '/datasets/GrrenTaxisJsonDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/GetFilesAndCopy')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get Files Metadata",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "GetFilesDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"fieldList": [
-								"childItems"
-							],
-							"storeSettings": {
-								"type": "AzureBlobFSReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "Execute CopyFiles Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Get Files Metadata",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "CopyFilesOneByOne",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"FileList": {
-									"value": "@activity('Get Files Metadata').output",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2023-06-14T17:43:12Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/GetFilesDataset')]",
-				"[concat(variables('factoryId'), '/pipelines/CopyFilesOneByOne')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RunDataFlow for GreenTaxis')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Data flow1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dataflow1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"GreenTaxisSrc": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-09-16T20:22:31Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
 			]
 		}
 	]
