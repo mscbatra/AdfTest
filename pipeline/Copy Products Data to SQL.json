@@ -251,9 +251,9 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "PID",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "ProdId",
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -263,7 +263,7 @@
 									"physicalType": "String"
 								},
 								"sink": {
-									"name": "NAME",
+									"name": "ProductName",
 									"type": "String",
 									"physicalType": "varchar"
 								}
