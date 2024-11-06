@@ -47,6 +47,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PwcAzureSqlLinkedService'"
 		},
+		"EYAzSqlLS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'EYAzSqlLS'"
+		},
+		"EYADLSLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'EYADLSLS'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
@@ -68,6 +76,22 @@
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
 		"PwcAzureDataLakeLinkedService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
+		},
+		"EYAzSqlLS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mstrainingsqlsrvr.database.windows.net"
+		},
+		"EYAzSqlLS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorks"
+		},
+		"EYAzSqlLS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "mbadmin"
+		},
+		"EYADLSLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
@@ -128,6 +152,12 @@
 					"PwcAzureSqlLinkedService_connectionString": {
 						"value": "[parameters('PwcAzureSqlLinkedService_connectionString')]"
 					},
+					"EYAzSqlLS_password": {
+						"value": "[parameters('EYAzSqlLS_password')]"
+					},
+					"EYADLSLS_accountKey": {
+						"value": "[parameters('EYADLSLS_accountKey')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -145,6 +175,18 @@
 					},
 					"PwcAzureDataLakeLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('PwcAzureDataLakeLinkedService_properties_typeProperties_url')]"
+					},
+					"EYAzSqlLS_properties_typeProperties_server": {
+						"value": "[parameters('EYAzSqlLS_properties_typeProperties_server')]"
+					},
+					"EYAzSqlLS_properties_typeProperties_database": {
+						"value": "[parameters('EYAzSqlLS_properties_typeProperties_database')]"
+					},
+					"EYAzSqlLS_properties_typeProperties_userName": {
+						"value": "[parameters('EYAzSqlLS_properties_typeProperties_userName')]"
+					},
+					"EYADLSLS_properties_typeProperties_url": {
+						"value": "[parameters('EYADLSLS_properties_typeProperties_url')]"
 					}
 				}
 			},
