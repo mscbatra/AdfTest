@@ -39,14 +39,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'DataLakeLinkedService'"
 		},
-		"EYAzureSqlDB_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'EYAzureSqlDB'"
-		},
-		"EYDataLakeGen2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'EYDataLakeGen2'"
-		},
 		"PwcAzureDataLakeLinkedService_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'PwcAzureDataLakeLinkedService'"
@@ -72,22 +64,6 @@
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
 		"DataLakeLinkedService_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
-		},
-		"EYAzureSqlDB_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "mstrainingsqlsrvr.database.windows.net"
-		},
-		"EYAzureSqlDB_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "AdventureWorks"
-		},
-		"EYAzureSqlDB_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "mbadmin"
-		},
-		"EYDataLakeGen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
@@ -146,12 +122,6 @@
 					"DataLakeLinkedService_accountKey": {
 						"value": "[parameters('DataLakeLinkedService_accountKey')]"
 					},
-					"EYAzureSqlDB_password": {
-						"value": "[parameters('EYAzureSqlDB_password')]"
-					},
-					"EYDataLakeGen2_accountKey": {
-						"value": "[parameters('EYDataLakeGen2_accountKey')]"
-					},
 					"PwcAzureDataLakeLinkedService_accountKey": {
 						"value": "[parameters('PwcAzureDataLakeLinkedService_accountKey')]"
 					},
@@ -172,18 +142,6 @@
 					},
 					"DataLakeLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('DataLakeLinkedService_properties_typeProperties_url')]"
-					},
-					"EYAzureSqlDB_properties_typeProperties_server": {
-						"value": "[parameters('EYAzureSqlDB_properties_typeProperties_server')]"
-					},
-					"EYAzureSqlDB_properties_typeProperties_database": {
-						"value": "[parameters('EYAzureSqlDB_properties_typeProperties_database')]"
-					},
-					"EYAzureSqlDB_properties_typeProperties_userName": {
-						"value": "[parameters('EYAzureSqlDB_properties_typeProperties_userName')]"
-					},
-					"EYDataLakeGen2_properties_typeProperties_url": {
-						"value": "[parameters('EYDataLakeGen2_properties_typeProperties_url')]"
 					},
 					"PwcAzureDataLakeLinkedService_properties_typeProperties_url": {
 						"value": "[parameters('PwcAzureDataLakeLinkedService_properties_typeProperties_url')]"

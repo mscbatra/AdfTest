@@ -29,12 +29,6 @@
 		"DataLakeLinkedService_accountKey": {
 			"value": ""
 		},
-		"EYAzureSqlDB_password": {
-			"value": ""
-		},
-		"EYDataLakeGen2_accountKey": {
-			"value": ""
-		},
 		"PwcAzureDataLakeLinkedService_accountKey": {
 			"value": ""
 		},
@@ -54,18 +48,6 @@
 			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
 		"DataLakeLinkedService_properties_typeProperties_url": {
-			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
-		},
-		"EYAzureSqlDB_properties_typeProperties_server": {
-			"value": "mstrainingsqlsrvr.database.windows.net"
-		},
-		"EYAzureSqlDB_properties_typeProperties_database": {
-			"value": "AdventureWorks"
-		},
-		"EYAzureSqlDB_properties_typeProperties_userName": {
-			"value": "mbadmin"
-		},
-		"EYDataLakeGen2_properties_typeProperties_url": {
 			"value": "https://mstrainingdatalake.dfs.core.windows.net/"
 		},
 		"PwcAzureDataLakeLinkedService_properties_typeProperties_url": {
